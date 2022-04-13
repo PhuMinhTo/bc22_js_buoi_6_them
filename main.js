@@ -1,68 +1,37 @@
-/**
- * Tìm số nguyên dương n nhỏ nhất sao cho 1 + 2 + … + n > 10000
-*/
-document.getElementById("btnTinh").onclick = function() {
-  var number = parseInt(document.getElementById("txtSo").value);
-  var n = 0;
-  var s = 0;
-  while(s < number) {
-    n++;
-    s += n;
+function $(id) {
+  return document.getElementById(id);
+}
+
+//hàm kiểm tra số nguyên tố
+function timSoNguyenTo(number) {
+  var flag = true;
+
+  if(number < 2) {
+    return flag = false;
   }
-  var kq = "<p class='alert alert-success'>Số nguyên dương nhỏ nhất: " + n + "</p>";
-  document.getElementById("footerTinh").innerHTML = kq;
+  var i = 2;
+  while(i < number) {
+    if(number % i == 0) {
+      flag = false;
+      break;
+    }
+    i++;
+  }
+  return flag;
 }
 
 
-
 /**
- * tính tổng: S(n) = x + x^2 + x^3 + … + x^n
+ * In ra các số nguyên tố từ 1 tới giá trị của ô input
 */
-document.getElementById("btnTinhTong").onclick = function() {
-  var x = parseInt(document.getElementById("txtSoX").value);
-  var n = parseInt(document.getElementById("txtSoN").value);
-  var t = 1;
-  var s = 0;
-
-  for(var i = 1; i <= n; i++) {
-    t *= x;
-    s += t;
-  }
-  var kq = "<p class='alert alert-success'>Tổng S là: " + s + "</p>"
-  document.getElementById("footerTinhTong").innerHTML = kq;
-}
-
-
-
-/**
- * Tinh giai thừa
-*/
-document.getElementById("btnTinhGT").onclick = function() {
-  var n = parseInt(document.getElementById("txtSoGT").value);
-  var tongGiaiThua = 1;
-
-  for(var i = 1; i <= n; i++) {
-    tongGiaiThua *= i;
-  }
-  var kq = "<p class='alert alert-success'>Tổng n! là: " + tongGiaiThua + "</p>"
-  document.getElementById("footerTinhGT").innerHTML = kq;
-}
-
-
-
-/**
- * Tạo div chẵn lẽ
-*/
-document.getElementById("btnDiv").onclick = function() {
-  var soDiv = document.getElementById("txtSoDiv").value;
+$("btnTinh").onclick = function() {
+  var number = $("txtSo").value;
   var content = "";
-
-  for(var i = 1; i <= soDiv; i++) {
-    if(i%2 == 0) {
-      content += "<div class='alert alert-info'>Div chẵn " + i + "</div>";
-    } else {
-      content += "<div class='alert alert-danger'>Div lẻ " + i + "</div>";
+  for(var j = 2; j <= number; j++) {
+    var soNguyenTo = timSoNguyenTo(j);
+    if(soNguyenTo) {
+      content += j + " ";
     }
   }
-  document.getElementById("footerDiv").innerHTML = content;
+  $("footerTinh").innerHTML = content;
 }
